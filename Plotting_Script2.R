@@ -1,0 +1,12 @@
+setwd('c://users/dale/my documents/github/exdata_plotting1')
+electric1<-read.csv("household_power_consumption.txt",na.strings="?",sep=";",as.is=TRUE)
+electric1[,1]<-as.Date(electric1[,1],format="%d/%m/%Y")
+electric2<-subset(electric1,electric1$Date==c("2007-02-01","2007-02-02"))
+rm(electric1)
+electric2[,10]<-paste(as.character(electric2[,1]),electric2[,2])
+electric2[,10]<- as.POSIXct(electric2[,10])
+colnames(electric2)[10]<-"DateTime"
+png("plot2.png", height=480, width=480)
+plot(electric2$DateTime,electric2$Global_active_power,type='l', ylab="Global Active Power (kilowatts)",xlab="", sub="")
+lines(electric2$DateTime,electric2$Global_active_power)
+dev.off()
